@@ -8,12 +8,12 @@ on:
       - "v*"
 
 env:
-  REGISTRY: 10.0.0.130:3000
-  IMAGE_NAME: chius/alpine-pro
+  REGISTRY: ${{ vars.REGISTRY_URL }}
+  IMAGE_NAME: ${{ vars.IMAGE_NAME }}
 
 jobs:
   build:
-    runs-on: docker
+    runs-on: ubuntu
 
     steps:
       - name: Checkout repository
