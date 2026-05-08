@@ -34,3 +34,10 @@ jobs:
       - name: Push version image
         if: startsWith(github.ref, 'refs/tags/')
         run: docker push "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }}"
+
+      - name: Cleanup local Docker images
+        if: always()
+        run: |
+          docker image rm "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }}" || true
+          docker image rm "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest" || true
+          docker image prune -f
